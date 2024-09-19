@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class SelfProductServiceImplTest {
@@ -50,6 +51,8 @@ public class SelfProductServiceImplTest {
         when(productRepository.findProductById(productId)).thenReturn(product);
         Product prd = selfProductServiceImpl.getProductById(productId);
         assertEquals(prd.getTitle(), product.getTitle());
+
+        verify(productRepository).findProductById(productId);    //It ckeck,If findProductById(1L) wasn’t called, the test would fail.
     }
 
     public void testGetProductById_returnsNullProduct(){
